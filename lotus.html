@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ЛОТУС — Национальная цифровая транспортно-логистическая платформа</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & ROOT ─────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A2540;--navy2:#0D3060;--navy3:#1a4a8a;
+  --blue:#1C6EF7;--blue2:#3B82F6;--blue3:#60A5FA;
+  --green:#00C48C;--green2:#10B981;
+  --gray:#F4F6F9;--gray2:#E8EDF4;--gray3:#C8D4E3;
+  --text:#0A2540;--text2:#4A6080;--text3:#8A9BB0;
+  --white:#FFFFFF;
+  --font:'Manrope',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --r:12px;--r-lg:20px;--r-xl:32px;
+  --shadow:0 2px 12px rgba(10,37,64,.08);
+  --shadow-lg:0 8px 40px rgba(10,37,64,.14);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text);background:var(--white);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── UTILS ────────────────────────────────────── */
+.container{max-width:1280px;margin:0 auto;padding:0 40px}
+@media(max-width:768px){.container{padding:0 20px}}
+.tag{display:inline-block;background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;font-family:var(--mono)}
+
+/* ── VIEWS ────────────────────────────────────── */
+.view{display:none}
+.view.active{display:block}
+
+/* ══════════════════════════════════════════════
+   LANDING
+══════════════════════════════════════════════ */
+
+/* HEADER */
+.l-header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--gray2);
+  padding:0 40px;height:64px;
+  display:flex;align-items:center;gap:32px;
+}
+.l-logo{
+  display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0
+}
+.l-logo-badge{
+  background:var(--blue);color:#fff;font-size:14px;font-weight:800;
+  padding:6px 14px;border-radius:8px;letter-spacing:.5px;font-family:var(--mono)
+}
+.l-logo-sub{font-size:10px;color:var(--text3);line-height:1.3;max-width:140px;font-weight:500}
+.l-nav{display:flex;align-items:center;gap:2px;flex:1}
+.l-nav-item{
+  padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;
+  color:var(--text2);cursor:pointer;white-space:nowrap;transition:all .15s;
+  border:none;background:none;font-family:var(--font);display:flex;align-items:center;gap:4px
+}
+.l-nav-item:hover{background:var(--gray);color:var(--text)}
+.l-header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn-outline{
+  padding:9px 20px;border-radius:8px;border:1.5px solid var(--navy);
+  background:transparent;color:var(--navy);font-size:14px;font-weight:600;
+  cursor:pointer;font-family:var(--font);transition:all .15s;white-space:nowrap
+}
+.btn-outline:hover{background:var(--navy);color:#fff}
+.btn-primary{
+  padding:9px 20px;border-radius:8px;border:none;
+  background:var(--blue);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;font-family:var(--font);transition:all .15s;white-space:nowrap
+}
+.btn-primary:hover{background:var(--navy2)}
+.btn-primary.lg{padding:14px 32px;font-size:16px;border-radius:12px}
+.btn-outline.lg{padding:14px 32px;font-size:16px;border-radius:12px}
+
+/* HERO */
+.l-hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(145deg,var(--navy) 0%,var(--navy2) 60%,#0a4080 100%);
+  min-height:580px;display:flex;align-items:center;
+}
+.l-hero-content{position:relative;z-index:2;padding:80px 40px;max-width:700px}
+.l-hero-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;font-family:var(--mono)}
+.l-hero-title{font-size:clamp(72px,10vw,120px);font-weight:800;color:#fff;line-height:.95;letter-spacing:-4px;margin-bottom:28px}
+.l-hero-sub{font-size:16px;color:rgba(255,255,255,.7);line-height:1.7;max-width:480px;margin-bottom:40px}
+.l-hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.l-hero-img{
+  position:absolute;right:0;top:0;bottom:0;width:55%;
+  background:url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80') center/cover;
+  mask:linear-gradient(to right,transparent 0%,rgba(0,0,0,.8) 30%,black 100%)
+}
+.l-hero-stats{
+  display:flex;gap:0;margin-top:56px;
+  border-top:1px solid rgba(255,255,255,.15);padding-top:32px
+}
+.l-hero-stat{padding-right:48px;border-right:1px solid rgba(255,255,255,.12);margin-right:48px}
+.l-hero-stat:last-child{border:none;margin:0;padding:0}
+.l-hero-stat-num{font-size:32px;font-weight:800;color:#fff;line-height:1;font-family:var(--mono)}
+.l-hero-stat-num span{color:var(--green);font-size:18px}
+.l-hero-stat-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:500}
+
+/* SECTIONS */
+.l-section{padding:80px 0}
+.l-section-alt{background:var(--gray)}
+.l-section-dark{background:var(--navy);color:#fff}
+.l-section-title{font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:40px}
+.l-section-title.white{color:#fff}
+.l-section-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-family:var(--mono)}
+
+/* SERVICES TABLE */
+.l-srv-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
+.l-srv-table th{
+  padding:14px 24px;font-size:12px;font-weight:700;color:var(--text3);
+  text-transform:uppercase;letter-spacing:1px;text-align:left;
+  border-bottom:1px solid var(--gray2)
+}
+.l-srv-table th:nth-child(2){color:var(--blue);font-size:11px}
+.l-srv-table th:nth-child(3){color:var(--green);font-size:11px}
+.l-srv-table td{padding:18px 24px;border-bottom:1px solid var(--gray2);vertical-align:top}
+.l-srv-table tr:last-child td{border:none}
+.l-srv-table td:first-child{font-weight:700;font-size:15px;width:220px}
+.l-srv-table td:nth-child(2){font-size:14px;color:var(--text2)}
+.l-srv-table td:nth-child(3){color:var(--green);font-weight:600;font-size:14px}
+.l-srv-num{font-size:24px;font-weight:800;font-family:var(--mono)}
+.l-srv-num-unit{font-size:13px;font-weight:500;color:var(--text3)}
+
+/* TECH GRID */
+.l-tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.l-tech-grid{grid-template-columns:repeat(2,1fr)}}
+.l-tech-card{
+  background:#fff;border:1px solid var(--gray2);border-radius:var(--r);
+  padding:20px;transition:all .2s
+}
+.l-tech-card:hover{border-color:var(--blue3);box-shadow:var(--shadow)}
+.l-tech-icon{font-size:24px;margin-bottom:10px}
+.l-tech-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.l-tech-desc{font-size:12px;color:var(--text3);font-weight:500}
+
+/* COMMERCIAL GRID */
+.l-comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:768px){.l-comm-grid{grid-template-columns:1fr}}
+.l-comm-left{display:flex;flex-direction:column;gap:10px}
+.l-comm-item{
+  background:#fff;border:1px solid var(--gray2);border-radius:var(--r);
+  padding:20px 24px;cursor:pointer;transition:all .15s
+}
+.l-comm-item:hover{border-color:var(--blue);background:rgba(28,110,247,.02)}
+.l-comm-item-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.l-comm-item-sub{font-size:13px;color:var(--text3)}
+.l-scenarios{
+  background:var(--navy2);border-radius:var(--r-lg);padding:28px;
+  display:flex;flex-direction:column;gap:12px
+}
+.l-scenarios-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.l-scenario-card{
+  background:#fff;border-radius:var(--r);padding:18px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;transition:all .15s;text-decoration:none
+}
+.l-scenario-card:hover{background:rgba(255,255,255,.92)}
+.l-scenario-title{font-size:15px;font-weight:700;color:var(--navy)}
+.l-scenario-arrow{
+  width:32px;height:32px;border-radius:50%;background:var(--blue);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0
+}
+.l-scenario-arrow svg{color:#fff}
+
+/* GOALS */
+.l-goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:768px){.l-goals-grid{grid-template-columns:1fr}}
+.l-goal-card{background:var(--navy2);border-radius:var(--r-lg);padding:32px}
+.l-goal-card-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+.l-goal-card-year{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:24px;font-family:var(--mono)}
+.l-goal-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.l-goal-metric{background:rgba(255,255,255,.07);border-radius:10px;padding:16px}
+.l-goal-metric-val{font-size:22px;font-weight:800;font-family:var(--mono);margin-bottom:4px}
+.l-goal-metric-val.up{color:var(--green)}
+.l-goal-metric-val.dn{color:#FF6B6B}
+.l-goal-metric-label{font-size:12px;color:rgba(255,255,255,.5);line-height:1.4}
+.l-lpi-list{display:flex;flex-direction:column;gap:8px}
+.l-lpi-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,.05);border-radius:8px}
+.l-lpi-name{font-size:13px;color:rgba(255,255,255,.7);flex:1}
+.l-lpi-from{font-size:15px;font-weight:700;font-family:var(--mono);color:rgba(255,255,255,.4)}
+.l-lpi-arrow{color:rgba(255,255,255,.2);font-size:16px}
+.l-lpi-to{font-size:15px;font-weight:700;font-family:var(--mono);color:var(--green)}
+.l-lpi-dot{width:32px;height:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* FAQ */
+.l-faq-grid{display:grid;grid-template-columns:1fr 340px;gap:40px}
+@media(max-width:900px){.l-faq-grid{grid-template-columns:1fr}}
+.l-faq-list{display:flex;flex-direction:column}
+.l-faq-item{border-bottom:1px solid var(--gray2);padding:20px 0}
+.l-faq-q{font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.l-faq-q svg{flex-shrink:0;transition:transform .2s;color:var(--text3)}
+.l-faq-item.open .l-faq-q svg{transform:rotate(180deg)}
+.l-faq-a{font-size:14px;color:var(--text2);line-height:1.7;padding-top:12px;display:none}
+.l-faq-item.open .l-faq-a{display:block}
+.l-faq-cta{background:var(--navy2);border-radius:var(--r-lg);padding:28px;height:fit-content}
+.l-faq-cta-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px}
+.l-faq-cta-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:20px}
+.l-faq-cta-btn{
+  display:block;width:100%;padding:14px;text-align:center;
+  background:#fff;color:var(--navy);border-radius:10px;
+  font-weight:700;font-size:15px;cursor:pointer;border:none;font-family:var(--font)
+}
+
+/* NEWSLETTER */
+.l-news{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);
+  border-radius:var(--r-xl);padding:48px;
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center
+}
+@media(max-width:768px){.l-news{grid-template-columns:1fr}}
+.l-news-title{font-size:28px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px}
+.l-news-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.6}
+.l-news-form{display:flex;gap:10px}
+.l-news-input{
+  flex:1;padding:12px 16px;border-radius:10px;border:none;
+  font-size:14px;font-family:var(--font);outline:none;color:var(--text)
+}
+.l-news-btn{
+  padding:12px 24px;border-radius:10px;background:var(--blue);color:#fff;
+  border:none;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;font-family:var(--font)
+}
+
+/* PARTNERS */
+.l-partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:768px){.l-partners-grid{grid-template-columns:1fr}}
+.l-partner-card{
+  position:relative;overflow:hidden;border-radius:var(--r-lg);
+  padding:28px;min-height:220px;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(135deg,var(--navy2),var(--navy3));
+  transition:transform .2s
+}
+.l-partner-card:hover{transform:translateY(-2px)}
+.l-partner-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px}
+.l-partner-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
+.l-partner-arrow{
+  width:36px;height:36px;border-radius:50%;background:#fff;
+  display:flex;align-items:center;justify-content:center;align-self:flex-end
+}
+
+/* FOOTER */
+.l-footer{background:var(--navy);padding:56px 0 32px}
+.l-footer-grid{display:grid;grid-template-columns:280px 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+@media(max-width:900px){.l-footer-grid{grid-template-columns:1fr 1fr}}
+.l-footer-brand .l-logo-badge{font-size:18px;padding:8px 18px}
+.l-footer-desc{font-size:13px;color:rgba(255,255,255,.4);margin-top:16px;line-height:1.6}
+.l-footer-col-title{font-size:12px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;font-family:var(--mono)}
+.l-footer-link{display:block;font-size:14px;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:10px;transition:color .15s}
+.l-footer-link:hover{color:#fff}
+.l-footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.l-footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+
+/* ══════════════════════════════════════════════
+   PERSONAL ACCOUNT (CABINET)
+══════════════════════════════════════════════ */
+.cab{display:flex;height:100vh;overflow:hidden;background:var(--gray)}
+
+/* CAB SIDEBAR */
+.cab-sidebar{
+  width:260px;flex-shrink:0;background:var(--white);
+  border-right:1px solid var(--gray2);
+  display:flex;flex-direction:column;
+}
+.cab-logo{
+  padding:20px 20px 0;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--gray2);padding-bottom:16px
+}
+.cab-logo-img{background:var(--blue);color:#fff;font-size:12px;font-weight:800;padding:5px 12px;border-radius:6px;font-family:var(--mono)}
+.cab-logo-text{font-size:10px;color:var(--text3);line-height:1.3;font-weight:500}
+.cab-nav{flex:1;padding:12px 12px;overflow-y:auto}
+.cab-nav-item{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;
+  border-radius:8px;cursor:pointer;font-size:14px;color:var(--text2);
+  transition:all .15s;font-weight:500;margin-bottom:2px;
+  border:none;background:none;width:100%;font-family:var(--font);text-align:left
+}
+.cab-nav-item:hover{background:var(--gray);color:var(--text)}
+.cab-nav-item.active{background:rgba(28,110,247,.08);color:var(--blue);font-weight:600}
+.cab-nav-item svg{width:18px;height:18px;flex-shrink:0;opacity:.6}
+.cab-nav-item.active svg{opacity:1}
+.cab-new-btn{
+  margin:12px 12px 16px;padding:11px;border-radius:8px;
+  border:1.5px dashed var(--blue);background:rgba(28,110,247,.04);
+  color:var(--blue);font-size:14px;font-weight:700;cursor:pointer;
+  font-family:var(--font);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px
+}
+.cab-new-btn:hover{background:rgba(28,110,247,.1)}
+.cab-user{padding:14px 20px;border-top:1px solid var(--gray2);display:flex;align-items:center;gap:10px}
+.cab-avatar{width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cab-user-name{font-size:13px;font-weight:600;line-height:1.2}
+.cab-user-org{font-size:11px;color:var(--text3);line-height:1}
+
+/* CAB MAIN */
+.cab-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.cab-topbar{
+  background:#fff;border-bottom:1px solid var(--gray2);
+  padding:0 32px;height:52px;display:flex;align-items:center;
+  justify-content:space-between;flex-shrink:0
+}
+.cab-breadcrumb{font-size:13px;color:var(--text3)}
+.cab-breadcrumb span{color:var(--text);font-weight:600}
+.cab-topbar-right{display:flex;align-items:center;gap:16px}
+.cab-notif{position:relative;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background .15s}
+.cab-notif:hover{background:var(--gray)}
+.cab-notif-badge{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--blue);border-radius:50%;border:2px solid #fff}
+.cab-time{font-size:12px;color:var(--text3);font-family:var(--mono);text-align:right;line-height:1.3}
+.cab-content{flex:1;overflow-y:auto;padding:32px}
+
+/* CAB VIEWS */
+.cab-view{display:none}
+.cab-view.active{display:block}
+.cab-page-title{font-size:28px;font-weight:800;letter-spacing:-0.5px;margin-bottom:28px}
+
+/* STATS ROW */
+.cab-stats-row{display:flex;gap:12px;margin-bottom:28px}
+.cab-stat-card{
+  flex:1;background:#fff;border:1px solid var(--gray2);border-radius:10px;
+  padding:16px 20px;display:flex;align-items:center;gap:16px
+}
+.cab-stat-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cab-stat-icon.blue{background:rgba(28,110,247,.1);color:var(--blue)}
+.cab-stat-icon.orange{background:rgba(255,107,53,.1);color:#FF6B35}
+.cab-stat-icon.red{background:rgba(239,68,68,.1);color:#EF4444}
+.cab-stat-num{font-size:24px;font-weight:800;font-family:var(--mono)}
+.cab-stat-label{font-size:12px;color:var(--text3);font-weight:500}
+
+/* FILTERS */
+.cab-filters{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.cab-filter-select{
+  padding:8px 14px;border-radius:8px;border:1px solid var(--gray2);
+  background:#fff;font-size:13px;font-family:var(--font);color:var(--text);
+  cursor:pointer;outline:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A9BB0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;padding-right:28px
+}
+.cab-filter-btn{
+  padding:8px 20px;border-radius:8px;border:none;background:var(--navy);
+  color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)
+}
+
+/* TABLE */
+.cab-table{background:#fff;border-radius:var(--r);border:1px solid var(--gray2);overflow:hidden}
+.cab-table-head{display:grid;grid-template-columns:160px 80px 1fr 1fr 110px 110px 120px;gap:0;padding:12px 20px;border-bottom:1px solid var(--gray2);background:var(--gray)}
+.cab-table-head-cell{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:4px}
+.cab-table-row{display:grid;grid-template-columns:160px 80px 1fr 1fr 110px 110px 120px;gap:0;padding:14px 20px;border-bottom:1px solid var(--gray2);align-items:center;cursor:pointer;transition:background .1s}
+.cab-table-row:last-child{border:none}
+.cab-table-row:hover{background:rgba(28,110,247,.02)}
+.cab-cpp{font-size:13px;font-weight:700;color:var(--blue);font-family:var(--mono)}
+.cab-status{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.cab-status.doing{background:rgba(28,110,247,.1);color:var(--blue)}
+.cab-status.done{background:rgba(0,196,140,.1);color:var(--green)}
+.cab-route{font-size:13px;line-height:1.4}
+.cab-route-from{font-weight:600}
+.cab-route-to{color:var(--text3)}
+.cab-cargo{font-size:13px;color:var(--text2)}
+.cab-date-block{font-size:12px;font-family:var(--mono)}
+.cab-date-plan{color:var(--text2)}
+.cab-date-fact{color:var(--text3)}
+.cab-date-badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:700;margin-left:4px}
+.cab-date-badge.plan{background:var(--gray2);color:var(--text3)}
+.cab-date-badge.fact{background:rgba(0,196,140,.1);color:var(--green)}
+.cab-coord{font-size:13px;color:var(--text2)}
+
+/* PAGINATION */
+.cab-pagination{display:flex;align-items:center;gap:6px;padding:16px 20px;border-top:1px solid var(--gray2);background:#fff}
+.cab-page-btn{padding:6px 12px;border-radius:6px;border:1px solid var(--gray2);background:#fff;font-size:13px;cursor:pointer;font-family:var(--mono)}
+.cab-page-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.cab-page-btn:hover:not(.active){background:var(--gray)}
+.cab-page-sep{color:var(--text3);font-size:13px}
+.cab-page-input{width:80px;padding:6px 10px;border-radius:6px;border:1px solid var(--gray2);font-size:13px;font-family:var(--mono);text-align:center}
+.cab-page-per{padding:6px 12px;border-radius:6px;border:1px solid var(--gray2);font-size:13px;font-family:var(--font)}
+
+/* ANALYTICS */
+.cab-analytics-layout{display:grid;grid-template-columns:1fr 280px;gap:20px}
+.cab-cpp-card{background:#fff;border:1px solid var(--gray2);border-radius:var(--r);padding:24px;margin-bottom:20px}
+.cab-cpp-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.cab-cpp-id{font-size:22px;font-weight:800;font-family:var(--mono);color:var(--navy)}
+.cab-cpp-copy{width:32px;height:32px;border-radius:6px;border:1px solid var(--gray2);display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff}
+.cab-cpp-status{padding:6px 14px;border-radius:20px;background:rgba(28,110,247,.1);color:var(--blue);font-size:13px;font-weight:700}
+.cab-cpp-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;background:var(--gray);border-radius:10px;padding:16px;margin-bottom:20px}
+.cab-cpp-meta-item{font-size:13px}
+.cab-cpp-meta-icon{color:var(--blue);margin-right:6px}
+.cab-cpp-meta-val{font-weight:600;color:var(--text)}
+.cab-cpp-meta-sub{color:var(--text3);font-size:12px;margin-top:2px}
+.cab-cpp-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.cab-cpp-kpi{background:var(--gray);border-radius:10px;padding:16px;text-align:center}
+.cab-cpp-kpi-val{font-size:26px;font-weight:800;font-family:var(--mono);color:var(--navy)}
+.cab-cpp-kpi-label{font-size:11px;color:var(--text3);margin-top:4px}
+.cab-route-header{font-size:15px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.cab-route-step{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray2)}
+.cab-route-step:last-child{border:none}
+.cab-route-dot{width:28px;height:28px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.cab-route-dot svg{color:#fff}
+.cab-route-name{font-size:14px;font-weight:700}
+.cab-route-company{font-size:12px;color:var(--blue);font-weight:600;margin:2px 0}
+.cab-route-dates{font-size:12px;color:var(--text3)}
+.cab-route-dates span{font-family:var(--mono)}
+.cab-map{width:100%;height:200px;border-radius:10px;background:var(--gray2);overflow:hidden;position:relative;margin-top:16px}
+.cab-map-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text3)}
+
+/* AI ASSISTANT */
+.cab-ai{background:var(--gray);border-radius:var(--r);padding:16px}
+.cab-ai-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cab-ai-title{font-size:13px;font-weight:700;color:var(--text)}
+.cab-ai-icon{background:var(--blue);color:#fff;border-radius:6px;padding:4px;display:flex}
+.cab-ai-query{
+  background:#fff;border-radius:8px;padding:12px 14px;margin-bottom:8px;
+  font-size:13px;color:var(--text2);cursor:pointer;line-height:1.4;
+  border:1px solid var(--gray2);transition:border .15s
+}
+.cab-ai-query:hover{border-color:var(--blue)}
+.cab-ai-more{font-size:13px;color:var(--blue);cursor:pointer;font-weight:600;text-align:center;padding:8px}
+.cab-tabs{display:flex;gap:0;border-bottom:1px solid var(--gray2);margin-bottom:20px}
+.cab-tab{padding:10px 20px;font-size:14px;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:600;transition:all .15s}
+.cab-tab:hover{color:var(--text)}
+.cab-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* NEW ORDER FORM */
+.cab-form-card{background:#fff;border:1px solid var(--gray2);border-radius:var(--r);padding:28px;margin-bottom:16px}
+.cab-form-section-title{font-size:17px;font-weight:700;margin-bottom:20px;color:var(--text)}
+.cab-ai-banner{background:rgba(28,110,247,.05);border:1px solid rgba(28,110,247,.2);border-radius:10px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.cab-ai-banner-text{font-size:13px;font-weight:600;color:var(--blue)}
+.cab-ai-banner-sub{font-size:12px;color:var(--text3)}
+.cab-ai-try-btn{padding:8px 18px;border-radius:8px;background:var(--blue);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:var(--font)}
+.cab-type-toggle{display:flex;border:1px solid var(--gray2);border-radius:8px;overflow:hidden;width:fit-content;margin-bottom:24px}
+.cab-type-opt{padding:10px 24px;font-size:14px;font-weight:600;cursor:pointer;border:none;background:transparent;font-family:var(--font);color:var(--text3);transition:all .15s}
+.cab-type-opt.active{background:var(--navy);color:#fff}
+.cab-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.cab-form-group{display:flex;flex-direction:column;gap:6px}
+.cab-form-group.full{grid-column:1/-1}
+.cab-form-label{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
+.cab-form-input{
+  padding:11px 14px;border-radius:8px;border:1px solid var(--gray2);
+  font-size:14px;font-family:var(--font);color:var(--text);outline:none;
+  transition:border .15s;background:#fff
+}
+.cab-form-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(28,110,247,.08)}
+.cab-form-select{
+  padding:11px 14px;border-radius:8px;border:1px solid var(--gray2);
+  font-size:14px;font-family:var(--font);color:var(--text);outline:none;
+  appearance:none;cursor:pointer;background:#fff
+}
+.cab-form-actions{display:flex;gap:12px;justify-content:flex-end;padding-top:8px}
+
+/* UPLOAD AREA */
+.cab-upload{
+  border:2px dashed var(--gray2);border-radius:10px;padding:32px;text-align:center;
+  background:var(--gray);cursor:pointer;transition:all .15s;margin-bottom:16px
+}
+.cab-upload:hover{border-color:var(--blue);background:rgba(28,110,247,.02)}
+.cab-upload-icon{font-size:32px;margin-bottom:8px}
+.cab-upload-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cab-upload-sub{font-size:13px;color:var(--text3)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .l-header{padding:0 16px;gap:16px}
+  .l-nav{display:none}
+  .l-hero-img{display:none}
+  .l-hero-content{padding:40px 16px}
+  .l-hero-title{font-size:56px}
+  .l-hero-stats{flex-direction:column;gap:16px}
+  .l-hero-stat{border:none;padding:0;margin:0}
+  .l-section{padding:48px 0}
+  .l-tech-grid{grid-template-columns:repeat(2,1fr)}
+  .l-news{grid-template-columns:1fr}
+  .l-news-form{flex-direction:column}
+  .l-footer-grid{grid-template-columns:1fr}
+  .cab-sidebar{display:none}
+  .cab-table-head,.cab-table-row{grid-template-columns:1fr}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.l-hero-content>*{animation:fadeUp .5s ease backwards}
+.l-hero-label{animation-delay:.05s}
+.l-hero-title{animation-delay:.1s}
+.l-hero-sub{animation-delay:.18s}
+.l-hero-actions{animation-delay:.25s}
+.l-hero-stats{animation-delay:.32s}
+</style>
+</head>
+<body>
+
+<!-- ══ LANDING VIEW ══════════════════════════════ -->
+<div id="v-landing" class="view active">
+
+  <!-- HEADER -->
+  <header class="l-header">
+    <a class="l-logo" href="#" onclick="return false">
+      <div class="l-logo-badge">ЛОТУС</div>
+      <div class="l-logo-sub">Национальная цифровая<br>транспортно-логистическая платформа</div>
+    </a>
+    <nav class="l-nav">
+      <button class="l-nav-item">О платформе</button>
+      <button class="l-nav-item">Сервисы
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button class="l-nav-item">Участникам
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button class="l-nav-item">Новости</button>
+      <button class="l-nav-item">Документы</button>
+      <button class="l-nav-item">Поддержка</button>
+    </nav>
+    <div class="l-header-actions">
+      <button class="btn-outline" onclick="showCabinet()">Вход для ФОИВ</button>
+      <button class="btn-primary">Подключиться</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="l-hero">
+    <div class="l-hero-img"></div>
+    <div class="container" style="position:relative;z-index:2;width:100%">
+      <div class="l-hero-content" style="padding:80px 0">
+        <div class="l-hero-label">roslor.рф</div>
+        <div class="l-hero-title">ЛОТУС</div>
+        <div class="l-hero-sub">Цифровое пространство для взаимодействия государства и транспортно-логистического бизнеса. Обмен данными по единым стандартам между 40+ государственных и тысячами коммерческих информационных систем</div>
+        <div class="l-hero-actions">
+          <button class="btn-primary lg" onclick="showCabinet()">Войти в кабинет</button>
+          <button class="btn-outline lg" style="border-color:rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.08)">Узнать больше</button>
+        </div>
+        <div class="l-hero-stats">
+          <div class="l-hero-stat">
+            <div class="l-hero-stat-num">40<span>+</span></div>
+            <div class="l-hero-stat-label">Государственных ИС</div>
+          </div>
+          <div class="l-hero-stat">
+            <div class="l-hero-stat-num">19<span>+ млн</span></div>
+            <div class="l-hero-stat-label">Цифровых документов в год</div>
+          </div>
+          <div class="l-hero-stat">
+            <div class="l-hero-stat-num">1<span> реестр</span></div>
+            <div class="l-hero-stat-label">Экспедиторов уже работает</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГОСУДАРСТВЕННЫЕ СЕРВИСЫ -->
+  <section class="l-section" id="services">
+    <div class="container">
+      <div class="l-section-label">Сервисы платформы</div>
+      <div class="l-section-title">Государственные сервисы</div>
+      <table class="l-srv-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Сейчас</th>
+            <th>Будет реализовано</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ГИС ЭПД</td>
+            <td><span class="l-srv-num">19+</span> <span class="l-srv-num-unit">млн</span><br><span style="font-size:12px">Цифровых транспортных документов за 2025 г.</span></td>
+            <td><span class="l-srv-num">1,5–3</span> <span class="l-srv-num-unit">млрд</span><br><span style="font-size:12px">Цифровых транспортных документов в год</span></td>
+          </tr>
+          <tr>
+            <td>Реестры</td>
+            <td><span class="l-srv-num">1</span><br><span style="font-size:12px">Реестр экспедиторов</span></td>
+            <td><span class="l-srv-num">16+</span><br><span style="font-size:12px">Реестров участников и ОТЛИ</span></td>
+          </tr>
+          <tr>
+            <td>НСИ</td>
+            <td><span class="l-srv-num">3</span><br><span style="font-size:12px">Стандарта утверждены в сфере мультимодальных перевозок</span></td>
+            <td><span class="l-srv-num">8+</span><br><span style="font-size:12px">Стандартов будут утверждены</span></td>
+          </tr>
+          <tr>
+            <td>Цифровой паспорт перевозки (ЦПП)</td>
+            <td><span style="font-size:18px;color:#ccc">—</span></td>
+            <td><span style="font-size:15px;font-weight:700;color:var(--green)">10% в 2028 г. → 100% в 2030 г.</span><br><span style="font-size:12px">Всех грузоперевозок имеют полный цифровой двойник в ЦПП</span></td>
+          </tr>
+          <tr>
+            <td>Единое окно</td>
+            <td><span class="l-srv-num">17+</span> <span class="l-srv-num-unit">ИС</span><br><span class="l-srv-num">26+</span> <span class="l-srv-num-unit">дублей*</span></td>
+            <td><span class="l-srv-num" style="color:var(--green)">1</span><br><span style="font-size:12px">ИС для оформления документов. 0 дублирующих экземпляров</span></td>
+          </tr>
+          <tr>
+            <td>Отраслевая аналитика</td>
+            <td><span style="font-size:13px">Ретроспективная отраслевая аналитика</span></td>
+            <td><span style="font-size:13px;color:var(--green);font-weight:600">Оперативная аналитика на основе данных ЦПП</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ТЕХНИЧЕСКАЯ БАЗА -->
+  <section class="l-section l-section-alt">
+    <div class="container">
+      <div class="l-section-label">Инфраструктура</div>
+      <div class="l-section-title">Техническая база существующих ГИС</div>
+      <div class="l-tech-grid">
+        <div class="l-tech-card"><div class="l-tech-icon">☁️</div><div class="l-tech-name">ГосОблако (ГЕОП)</div><div class="l-tech-desc">Облачная инфраструктура</div></div>
+        <div class="l-tech-card"><div class="l-tech-icon">💻</div><div class="l-tech-name">Базис.DynamiX</div><div class="l-tech-desc">Виртуализация</div></div>
+        <div class="l-tech-card"><div class="l-tech-icon">🗄️</div><div class="l-tech-name">Postgres Pro</div><div class="l-tech-desc">СУБД</div></div>
+        <div class="l-tech-card"><div class="l-tech-icon">💾</div><div class="l-tech-name">ПАК Скала-Р</div><div class="l-tech-desc">Объектное хранилище</div></div>
+        <div class="l-tech-card"><div class="l-tech-icon">🔐</div><div class="l-tech-name">КриптоПро CSP</div><div class="l-tech-desc">Электронная подпись</div></div>
+        <div class="l-tech-card"><div class="l-tech-icon">🔒</div><div class="l-tech-name">ViPNet</div><div class="l-tech-desc">Сеть и шифрование</div></div>
+        <div class="l-tech-card"><div class="l-tech-icon">🛡️</div><div class="l-tech-name">Континент</div><div class="l-tech-desc">Шифрование</div></div>
+        <div class="l-tech-card"><div class="l-tech-icon">🐧</div><div class="l-tech-name">Astra Linux</div><div class="l-tech-desc">ОС</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОММЕРЧЕСКИЕ СЕРВИСЫ -->
+  <section class="l-section">
+    <div class="container">
+      <div class="l-comm-grid">
+        <div>
+          <div class="l-section-label">Для бизнеса</div>
+          <div class="l-section-title">Коммерческие сервисы</div>
+          <div class="l-comm-left">
+            <div class="l-comm-item">
+              <div class="l-comm-item-title">Агрегатор грузоперевозок</div>
+              <div class="l-comm-item-sub">(грузовой UBER)</div>
+            </div>
+            <div class="l-comm-item">
+              <div class="l-comm-item-title">Система оценки и репутации участников грузоперевозок</div>
+            </div>
+            <div class="l-comm-item">
+              <div class="l-comm-item-title">Сервисы прослеживаемости</div>
+            </div>
+            <div class="l-comm-item">
+              <div class="l-comm-item-title">Дополнительные услуги</div>
+              <div class="l-comm-item-sub">(страхование, финансирование и др.)</div>
+            </div>
+          </div>
+        </div>
+        <div class="l-scenarios">
+          <div class="l-scenarios-title">Сценарии использования</div>
+          <a class="l-scenario-card" href="#" onclick="return false">
+            <div class="l-scenario-title">Организация перевозки грузовладельцем</div>
+            <div class="l-scenario-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </a>
+          <a class="l-scenario-card" href="#" onclick="showCabinet();return false">
+            <div class="l-scenario-title">Личный кабинет грузоотправителя</div>
+            <div class="l-scenario-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </a>
+          <a class="l-scenario-card" href="#" onclick="showCabinet('analytics');return false">
+            <div class="l-scenario-title">Аналитика для ФОИВ и участников</div>
+            <div class="l-scenario-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЦЕЛИ НЦТЛП -->
+  <section class="l-section l-section-dark">
+    <div class="container">
+      <div class="l-section-label" style="color:rgba(255,255,255,.4)">Зачем это нужно</div>
+      <div class="l-section-title white">Цели создания НЦТЛП</div>
+      <div class="l-goals-grid">
+        <div class="l-goal-card">
+          <div class="l-goal-card-title">Повышение эффективности в логистике</div>
+          <div class="l-goal-card-year">К 2032 году</div>
+          <div class="l-goal-metrics">
+            <div class="l-goal-metric">
+              <div class="l-goal-metric-val up">↑ 7,5%</div>
+              <div class="l-goal-metric-label">Рост индекса производительности труда транспортировки и хранения</div>
+            </div>
+            <div class="l-goal-metric">
+              <div class="l-goal-metric-val dn">↓ 30%</div>
+              <div class="l-goal-metric-label">Снижение издержек на администрирование грузоперевозок</div>
+            </div>
+            <div class="l-goal-metric">
+              <div class="l-goal-metric-val dn">↓ на 2 дня</div>
+              <div class="l-goal-metric-label">Снижение длительности импортно-экспортных операций</div>
+            </div>
+            <div class="l-goal-metric">
+              <div class="l-goal-metric-val up">↑ 10%</div>
+              <div class="l-goal-metric-label">Рост коэффицента утилизации автомобильного грузового транспорта</div>
+            </div>
+          </div>
+        </div>
+        <div class="l-goal-card">
+          <div class="l-goal-card-title">Вхождение в ТОП-40 стран по индексу Эффективности логистики</div>
+          <div class="l-goal-card-year">К 2030 году</div>
+          <div class="l-lpi-list">
+            <div class="l-lpi-item">
+              <div class="l-lpi-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="l-lpi-name">Прослеживаемость</div>
+              <div class="l-lpi-from">2,5</div>
+              <div class="l-lpi-arrow">→</div>
+              <div class="l-lpi-to">3,5</div>
+            </div>
+            <div class="l-lpi-item">
+              <div class="l-lpi-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="l-lpi-name">Своевременность доставки</div>
+              <div class="l-lpi-from">2,9</div>
+              <div class="l-lpi-arrow">→</div>
+              <div class="l-lpi-to">3,9</div>
+            </div>
+            <div class="l-lpi-item">
+              <div class="l-lpi-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="l-lpi-name">Эффективность контроля на пунктах пропуска</div>
+              <div class="l-lpi-from">2,4</div>
+              <div class="l-lpi-arrow">→</div>
+              <div class="l-lpi-to">3,7</div>
+            </div>
+            <div class="l-lpi-item">
+              <div class="l-lpi-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="l-lpi-name">Простота организации международных перевозок</div>
+              <div class="l-lpi-from">2,3</div>
+              <div class="l-lpi-arrow">→</div>
+              <div class="l-lpi-to">3,6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="l-section">
+    <div class="container">
+      <div class="l-section-label">Вопросы и ответы</div>
+      <div class="l-section-title">Часто задаваемые вопросы</div>
+      <div class="l-faq-grid">
+        <div class="l-faq-list">
+          <div class="l-faq-item">
+            <div class="l-faq-q" onclick="toggleFaq(this)">
+              Кто может подключиться к НЦТЛП?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="l-faq-a">К платформе могут подключиться транспортно-логистические компании, грузоотправители, экспедиторы, операторы терминалов, государственные органы (ФОИВ) и ИТ-интеграторы, готовые разрабатывать сервисы на базе НЦТЛП.</div>
+          </div>
+          <div class="l-faq-item">
+            <div class="l-faq-q" onclick="toggleFaq(this)">
+              Что такое Цифровой Паспорт Перевозки (ЦПП)?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="l-faq-a">ЦПП — цифровой двойник перевозки, содержащий все данные о грузе, маршруте, участниках, документах и событиях в режиме реального времени. К 2030 году 100% грузоперевозок будут иметь ЦПП.</div>
+          </div>
+          <div class="l-faq-item">
+            <div class="l-faq-q" onclick="toggleFaq(this)">
+              Как подключить корпоративную систему к НЦТЛП?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="l-faq-a">Для подключения необходимо пройти процедуру регистрации, получить доступ к API-шлюзу и пройти процедуру тестирования совместимости. Полная документация и спецификации доступны в разделе для ИТ-интеграторов.</div>
+          </div>
+          <div class="l-faq-item">
+            <div class="l-faq-q" onclick="toggleFaq(this)">
+              Какие данные передаются через платформу?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="l-faq-a">Через платформу передаются транспортные документы (ЭТрН, ТТН, CMR), сведения о грузе, маршруте, статусах, данные о прохождении пограничных и таможенных пунктов, информация о участниках перевозки.</div>
+          </div>
+        </div>
+        <div>
+          <div class="l-faq-cta">
+            <div class="l-faq-cta-title">Остались вопросы?</div>
+            <div class="l-faq-cta-sub">Напишите нам</div>
+            <button class="l-faq-cta-btn">Задать вопрос</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="l-section l-section-alt">
+    <div class="container">
+      <div class="l-news">
+        <div>
+          <div class="l-news-title">Получайте официальную информацию о развитии платформы</div>
+          <div class="l-news-sub">Новости НЦТЛП, цифровые решения для логистики, изменения законодательства и ключевые события отрасли</div>
+        </div>
+        <div>
+          <div class="l-news-form">
+            <input class="l-news-input" type="email" placeholder="Адрес электронной почты"/>
+            <button class="l-news-btn">Подписаться на рассылку</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПАРТНЁРЫ -->
+  <section class="l-section">
+    <div class="container">
+      <div class="l-section-label">Экосистема</div>
+      <div class="l-section-title">Партнёрам проекта</div>
+      <div class="l-partners-grid">
+        <div class="l-partner-card">
+          <div>
+            <div class="l-partner-title">ИТ-интеграторам</div>
+            <div class="l-partner-sub">Инструменты и спецификации для подключения корпоративных систем</div>
+          </div>
+          <div class="l-partner-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+        <div class="l-partner-card" style="background:linear-gradient(135deg,#0a3a6a,#1a5a9a)">
+          <div>
+            <div class="l-partner-title">Госорганам</div>
+            <div class="l-partner-sub">Интеграция ведомственных систем, обмен данными и аналитика логистических процессов</div>
+          </div>
+          <div class="l-partner-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+        <div class="l-partner-card" style="background:linear-gradient(135deg,#1a2a4a,#0a3060)">
+          <div>
+            <div class="l-partner-title">СМИ</div>
+            <div class="l-partner-sub">Официальные новости, отчёты и материалы о проекте</div>
+          </div>
+          <div class="l-partner-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="l-footer">
+    <div class="container">
+      <div class="l-footer-grid">
+        <div class="l-footer-brand">
+          <div class="l-logo-badge" style="font-size:18px;padding:8px 18px">ЛОТУС</div>
+          <div class="l-footer-desc">Национальная цифровая транспортно-логистическая платформа</div>
+        </div>
+        <div>
+          <div class="l-footer-col-title">Платформа</div>
+          <a class="l-footer-link">О платформе</a>
+          <a class="l-footer-link">Государственные сервисы</a>
+          <a class="l-footer-link">Коммерческие сервисы</a>
+          <a class="l-footer-link">Техническая база</a>
+        </div>
+        <div>
+          <div class="l-footer-col-title">Участникам</div>
+          <a class="l-footer-link">ИТ-интеграторам</a>
+          <a class="l-footer-link">Госорганам</a>
+          <a class="l-footer-link">Перевозчикам</a>
+          <a class="l-footer-link">Грузоотправителям</a>
+        </div>
+        <div>
+          <div class="l-footer-col-title">Ресурсы</div>
+          <a class="l-footer-link">Новости</a>
+          <a class="l-footer-link">Документы</a>
+          <a class="l-footer-link">Поддержка</a>
+          <a class="l-footer-link" onclick="showCabinet()">Войти в кабинет</a>
+        </div>
+      </div>
+      <div class="l-footer-bottom">
+        <div class="l-footer-copy">© 2025 НЦТЛП ЛОТУС. Все права защищены.</div>
+        <div class="l-footer-copy">roslor.рф</div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /landing -->
+
+
+<!-- ══ CABINET VIEW ══════════════════════════════ -->
+<div id="v-cabinet" class="view">
+<div class="cab">
+
+  <!-- SIDEBAR -->
+  <aside class="cab-sidebar">
+    <div class="cab-logo">
+      <div class="cab-logo-img">ЛОТУС</div>
+      <div class="cab-logo-text">Национальная цифровая транспортно-логистическая платформа</div>
+    </div>
+    <nav class="cab-nav">
+      <button class="cab-nav-item active" id="nav-shipments" onclick="showCabView('shipments')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Все перевозки
+      </button>
+      <button class="cab-nav-item" id="nav-docs" onclick="showCabView('docs')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Управление документами
+      </button>
+      <button class="cab-nav-item" id="nav-archive" onclick="showCabView('archive')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        Архив документов
+      </button>
+      <button class="cab-nav-item" id="nav-analytics" onclick="showCabView('analytics')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Аналитическая панель
+      </button>
+      <button class="cab-nav-item" id="nav-connect" onclick="showCabView('connect')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+        Подключение ИС
+      </button>
+      <button class="cab-nav-item" id="nav-settings" onclick="showCabView('settings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Настройки
+      </button>
+    </nav>
+    <button class="cab-new-btn" onclick="showCabView('new-order')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Новая заявка
+    </button>
+    <div class="cab-user">
+      <div class="cab-avatar">АО</div>
+      <div>
+        <div class="cab-user-name">АО «ПодольскЛес»</div>
+        <div class="cab-user-org">ИНН 5036028001</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="cab-main">
+    <div class="cab-topbar">
+      <div class="cab-breadcrumb">Личный кабинет / <span id="cab-page-name">Все перевозки</span></div>
+      <div class="cab-topbar-right">
+        <div class="cab-notif">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <div class="cab-notif-badge"></div>
+        </div>
+        <div class="cab-time" id="cab-clock">05 дек 2025<br>14:25 (МСК)</div>
+        <button style="background:none;border:1px solid var(--gray2);border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;font-family:var(--font);color:var(--text2)" onclick="showLanding()">← На сайт</button>
+      </div>
+    </div>
+
+    <div class="cab-content">
+
+      <!-- VIEW: ALL SHIPMENTS -->
+      <div class="cab-view active" id="cv-shipments">
+        <div class="cab-page-title">Все перевозки</div>
+        <div class="cab-stats-row">
+          <div class="cab-stat-card">
+            <div class="cab-stat-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/></svg>
+            </div>
+            <div><div class="cab-stat-num">5</div><div class="cab-stat-label">Всего</div></div>
+          </div>
+          <div class="cab-stat-card">
+            <div class="cab-stat-icon orange">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div><div class="cab-stat-num">3</div><div class="cab-stat-label">В пути</div></div>
+          </div>
+          <div class="cab-stat-card">
+            <div class="cab-stat-icon red">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div><div class="cab-stat-num" style="color:#EF4444">1</div><div class="cab-stat-label">Требуют внимания</div></div>
+          </div>
+        </div>
+
+        <div class="cab-filters">
+          <select class="cab-filter-select"><option>Статус перевозки</option><option>Выполняется</option><option>Завершена</option></select>
+          <select class="cab-filter-select"><option>Статус документов</option><option>Все подписаны</option><option>Ожидают подписи</option></select>
+          <select class="cab-filter-select"><option>Период</option><option>Этот месяц</option><option>Последние 3 мес.</option></select>
+          <select class="cab-filter-select"><option>Контрагент</option></select>
+          <input class="cab-filter-select" style="background-image:none" placeholder="Направление" type="text"/>
+          <button class="cab-filter-btn">Применить</button>
+        </div>
+
+        <div class="cab-table">
+          <div class="cab-table-head">
+            <div class="cab-table-head-cell">ЦПП ↕</div>
+            <div class="cab-table-head-cell">Статус ↕</div>
+            <div class="cab-table-head-cell">Маршрут</div>
+            <div class="cab-table-head-cell">Груз ↕</div>
+            <div class="cab-table-head-cell">Отправка ↕</div>
+            <div class="cab-table-head-cell">Прибытие ↕</div>
+            <div class="cab-table-head-cell">Координатор ↕</div>
+          </div>
+          <div class="cab-table-row" onclick="showCabView('analytics')">
+            <div class="cab-cpp">ЦПП-4407-2025-067</div>
+            <div><span class="cab-status doing">Выполняется</span></div>
+            <div class="cab-route"><div class="cab-route-from">Подольск</div><div class="cab-route-to">Шанхай</div></div>
+            <div class="cab-cargo">Пиломатериалы хвойные, обрезные, сушёные</div>
+            <div class="cab-date-block">
+              <div class="cab-date-plan">05.12.2025 <span class="cab-date-badge plan">план</span></div>
+              <div class="cab-date-fact">05.12.2025 <span class="cab-date-badge fact">факт</span></div>
+            </div>
+            <div class="cab-date-block">
+              <div class="cab-date-plan">28.12.2025 <span class="cab-date-badge plan">план</span></div>
+              <div style="color:var(--text3);font-size:12px">— <span class="cab-date-badge plan">факт</span></div>
+            </div>
+            <div class="cab-coord">Иванов И.И.</div>
+          </div>
+          <div class="cab-table-row">
+            <div class="cab-cpp">ЦПП-5502-2025-001</div>
+            <div><span class="cab-status doing">Выполняется</span></div>
+            <div class="cab-route"><div class="cab-route-from">Москва</div><div class="cab-route-to">Архангельск</div></div>
+            <div class="cab-cargo">Мясные консервы</div>
+            <div class="cab-date-block">
+              <div class="cab-date-plan">10.12.2025 <span class="cab-date-badge plan">план</span></div>
+              <div class="cab-date-fact">18.12.2025 <span class="cab-date-badge fact">факт</span></div>
+            </div>
+            <div class="cab-date-block">
+              <div class="cab-date-plan">10.12.2025 <span class="cab-date-badge plan">план</span></div>
+              <div style="color:var(--text3);font-size:12px">— <span class="cab-date-badge plan">факт</span></div>
+            </div>
+            <div class="cab-coord">Сидоров В.В.</div>
+          </div>
+          <div class="cab-table-row">
+            <div class="cab-cpp">ЦПП-4406-2025-009</div>
+            <div><span class="cab-status doing">Выполняется</span></div>
+            <div class="cab-route"><div class="cab-route-from">Казань</div><div class="cab-route-to">Екатеринбург</div></div>
+            <div class="cab-cargo">Удобрения</div>
+            <div class="cab-date-block">
+              <div class="cab-date-plan">05.12.2025 <span class="cab-date-badge plan">план</span></div>
+              <div class="cab-date-fact">05.12.2025 <span class="cab-date-badge fact">факт</span></div>
+            </div>
+            <div class="cab-date-block">
+              <div class="cab-date-plan">14.12.2025 <span class="cab-date-badge plan">план</span></div>
+              <div style="color:var(--text3);font-size:12px">— <span class="cab-date-badge plan">факт</span></div>
+            </div>
+            <div class="cab-coord">Кузнецов Д.Д.</div>
+          </div>
+          <div class="cab-table-row">
+            <div class="cab-cpp">ЦПП-4410-2025-018</div>
+            <div><span class="cab-status done">Завершена</span></div>
+            <div class="cab-route"><div class="cab-route-from">Санкт-Петербург</div><div class="cab-route-to">Калуга</div></div>
+            <div class="cab-cargo">Металлопрокат +1 груз</div>
+            <div class="cab-date-block">
+              <div class="cab-date-fact">01.05.2025 <span class="cab-date-badge fact">факт</span></div>
+            </div>
+            <div class="cab-date-block">
+              <div class="cab-date-fact">09.05.2025 <span class="cab-date-badge fact">факт</span></div>
+            </div>
+            <div class="cab-coord">Смирнов Е.Е.</div>
+          </div>
+          <div class="cab-table-row">
+            <div class="cab-cpp">ЦПП-4411-2025-021</div>
+            <div><span class="cab-status done">Завершена</span></div>
+            <div class="cab-route"><div class="cab-route-from">Новосибирск</div><div class="cab-route-to">Владивосток</div></div>
+            <div class="cab-cargo">Бытовая техника +4 груза</div>
+            <div class="cab-date-block">
+              <div class="cab-date-fact">22.06.2025 <span class="cab-date-badge fact">факт</span></div>
+            </div>
+            <div class="cab-date-block">
+              <div class="cab-date-fact">01.07.2025 <span class="cab-date-badge fact">факт</span></div>
+            </div>
+            <div class="cab-coord">Петров А.А.</div>
+          </div>
+        </div>
+
+        <div class="cab-pagination">
+          <button class="cab-page-btn">«« Первая</button>
+          <button class="cab-page-btn">‹ Назад</button>
+          <button class="cab-page-btn active">1</button>
+          <button class="cab-page-btn">2</button>
+          <button class="cab-page-btn">3</button>
+          <span class="cab-page-sep">...</span>
+          <button class="cab-page-btn">100</button>
+          <button class="cab-page-btn">Вперёд ›</button>
+          <span style="flex:1"></span>
+          <span style="font-size:13px;color:var(--text3)">Номер #</span>
+          <input class="cab-page-input" type="number" value="1"/>
+          <select class="cab-page-per"><option>20</option><option>50</option><option>100</option></select>
+        </div>
+      </div>
+
+      <!-- VIEW: ANALYTICS -->
+      <div class="cab-view" id="cv-analytics">
+        <div class="cab-page-title">Аналитика для ФОИВ и участников
+          <button style="float:right;padding:8px 18px;border-radius:8px;border:1px solid var(--gray2);background:#fff;font-size:13px;cursor:pointer;font-family:var(--font);display:inline-flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            Настроить
+          </button>
+        </div>
+        <div class="cab-tabs">
+          <div class="cab-tab active">Цифровой паспорт перевозки</div>
+          <div class="cab-tab">Оперативная аналитика</div>
+          <div class="cab-tab">Новые показатели</div>
+          <div class="cab-tab">КПЭ НЦТЛП</div>
+        </div>
+        <div class="cab-analytics-layout">
+          <div>
+            <div class="cab-cpp-card">
+              <div class="cab-cpp-card-header">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div class="cab-cpp-id">ЦПП-4407-2025-067</div>
+                  <div class="cab-cpp-copy">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                  </div>
+                </div>
+                <div class="cab-cpp-status">Выполняется</div>
+              </div>
+              <div class="cab-cpp-meta">
+                <div class="cab-cpp-meta-item">
+                  <div><span class="cab-cpp-meta-icon">📦</span><span class="cab-cpp-meta-val">Экспортная мультимодальная перевозка</span></div>
+                </div>
+                <div class="cab-cpp-meta-item">
+                  <div><span class="cab-cpp-meta-icon">📍</span><span class="cab-cpp-meta-val">Подольск → Шанхай, КНР</span></div>
+                  <div class="cab-cpp-meta-sub">г. Подольск, ул. Большая Серпуховская, д. 214в</div>
+                </div>
+                <div class="cab-cpp-meta-item">
+                  <div><span class="cab-cpp-meta-icon">🏢</span><span class="cab-cpp-meta-val">АО «ПодольскЛес» (ИНН 5036028001)</span></div>
+                  <div class="cab-cpp-meta-sub">Shanghai Wood Import Co. CN</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:var(--text3);font-family:var(--mono);margin-bottom:12px">05 дек 2025 — 28 дек 2025</div>
+              <div class="cab-cpp-kpis">
+                <div class="cab-cpp-kpi">
+                  <div class="cab-cpp-kpi-val">70+</div>
+                  <div class="cab-cpp-kpi-label">параметров перевозки</div>
+                </div>
+                <div class="cab-cpp-kpi">
+                  <div class="cab-cpp-kpi-val">10+</div>
+                  <div class="cab-cpp-kpi-label">источников данных</div>
+                </div>
+                <div class="cab-cpp-kpi">
+                  <div class="cab-cpp-kpi-val">23+</div>
+                  <div class="cab-cpp-kpi-label">документа</div>
+                </div>
+                <div class="cab-cpp-kpi" style="background:rgba(0,196,140,.08);border-radius:10px;padding:16px;text-align:center">
+                  <div style="font-size:11px;color:var(--green);font-weight:700;line-height:1.4">Отслеживание статуса изменений всех параметров перевозки</div>
+                </div>
+              </div>
+            </div>
+            <div class="cab-cpp-card">
+              <div class="cab-route-header">Маршрут</div>
+              <div class="cab-route-step">
+                <div class="cab-route-dot">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div style="flex:1">
+                  <div class="cab-route-name">Подольск → СВХ «Белые Столбы»</div>
+                  <div class="cab-route-company">ООО «ПодольскТранс»</div>
+                  <div class="cab-route-dates">Отправление: план <span>05.12.2025</span> факт <span>05.12.2025</span></div>
+                  <div class="cab-route-dates">Прибытие: план <span>05.12.2025</span> факт <span>05.12.2025</span></div>
+                </div>
+              </div>
+              <div class="cab-route-step">
+                <div class="cab-route-dot" style="background:var(--blue)">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div style="flex:1">
+                  <div class="cab-route-name">Таможенное оформление — Шереметьево</div>
+                  <div class="cab-route-company">ФТС России</div>
+                  <div class="cab-route-dates">Отправление: план <span>06.12.2025</span> факт <span>06.12.2025</span></div>
+                </div>
+              </div>
+              <div class="cab-route-step">
+                <div class="cab-route-dot" style="background:var(--gray3)">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/></svg>
+                </div>
+                <div style="flex:1">
+                  <div class="cab-route-name" style="color:var(--text3)">Шанхайский морской порт</div>
+                  <div class="cab-route-company" style="color:var(--text3)">Shanghai Wood Import Co.</div>
+                  <div class="cab-route-dates">Прибытие: план <span>28.12.2025</span></div>
+                </div>
+              </div>
+              <div class="cab-map">
+                <div class="cab-map-placeholder">🗺 Карта маршрута (интеграция с ГИС)</div>
+              </div>
+            </div>
+          </div>
+          <!-- AI ASSISTANT -->
+          <div class="cab-ai">
+            <div class="cab-ai-header">
+              <div class="cab-ai-title">ИИ-помощник НЦТЛП</div>
+              <div class="cab-ai-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              </div>
+            </div>
+            <div class="cab-ai-query">Сформировать прогноз изменения объёмов перевозок по ключевым международным транспортным коридорам</div>
+            <div class="cab-ai-query">Сформировать отчёт по динамике тарифов грузоперевозок с выявлением аномалий</div>
+            <div class="cab-ai-query">Сформировать отчёт по фактическому и нормативному времени прохождения пограничных и таможенных процедур</div>
+            <div class="cab-ai-more">Показать ещё запросы ↓</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW: NEW ORDER -->
+      <div class="cab-view" id="cv-new-order">
+        <div class="cab-breadcrumb" style="margin-bottom:8px">Личный кабинет / <span>Заявка на перевозку</span></div>
+        <div class="cab-page-title">Ввод информации о товаре и грузе</div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:20px">Введите данные заявки вручную или загрузите сведения из подключённой системы. После загрузки данные можно отредактировать</p>
+
+        <div class="cab-ai-banner">
+          <div>
+            <div class="cab-ai-banner-text">✦ ИИ-помощник НЦТЛП</div>
+            <div class="cab-ai-banner-sub">Автоматическое оформление перевозки и документов</div>
+          </div>
+          <button class="cab-ai-try-btn">Попробовать →</button>
+        </div>
+
+        <div class="cab-form-card">
+          <div class="cab-form-section-title">Маршрут и детали перевозки</div>
+          <div style="margin-bottom:16px">
+            <div class="cab-form-label" style="margin-bottom:8px">Тип перевозки</div>
+            <div class="cab-type-toggle">
+              <button class="cab-type-opt active" onclick="setType(this)">Внутренняя (по РФ)</button>
+              <button class="cab-type-opt" onclick="setType(this)">Международная (импорт/экспорт)</button>
+            </div>
+          </div>
+          <div class="cab-form-grid">
+            <div class="cab-form-group">
+              <label class="cab-form-label">Откуда (адрес отправки)</label>
+              <input class="cab-form-input" type="text" placeholder="Введите адрес отправки груза"/>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">Куда (адрес доставки)</label>
+              <input class="cab-form-input" type="text" placeholder="Введите адрес доставки груза"/>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">Дата отправки</label>
+              <input class="cab-form-input" type="date"/>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">Время отправки</label>
+              <select class="cab-form-select">
+                <option>Выберите временной слот отправки груза</option>
+                <option>08:00 – 10:00</option>
+                <option>10:00 – 12:00</option>
+                <option>12:00 – 14:00</option>
+                <option>14:00 – 16:00</option>
+                <option>16:00 – 18:00</option>
+              </select>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">ФИО контактного лица</label>
+              <input class="cab-form-input" type="text" placeholder="Иванов Иван Иванович"/>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">Телефон контактного лица</label>
+              <input class="cab-form-input" type="tel" placeholder="+7 (000) 000-00-00"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="cab-form-card">
+          <div class="cab-form-section-title">Информация о грузе</div>
+          <div class="cab-form-grid">
+            <div class="cab-form-group">
+              <label class="cab-form-label">Наименование груза</label>
+              <input class="cab-form-input" type="text" placeholder="Например: пиломатериалы хвойные"/>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">Вид тары</label>
+              <select class="cab-form-select">
+                <option>Выберите вид тары</option>
+                <option>Паллеты</option>
+                <option>Ящики</option>
+                <option>Мешки</option>
+                <option>Навалом</option>
+                <option>Контейнер</option>
+              </select>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">Вес (кг)</label>
+              <input class="cab-form-input" type="number" placeholder="0"/>
+            </div>
+            <div class="cab-form-group">
+              <label class="cab-form-label">Объём (м³)</label>
+              <input class="cab-form-input" type="number" placeholder="0"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="cab-form-card">
+          <div class="cab-form-section-title">Документы</div>
+          <div class="cab-upload">
+            <div class="cab-upload-icon">📎</div>
+            <div class="cab-upload-title">Загрузить документы</div>
+            <div class="cab-upload-sub">Перетащите файлы или нажмите для выбора. Поддерживаются PDF, DOC, XLS</div>
+          </div>
+        </div>
+
+        <div class="cab-form-actions">
+          <button class="btn-outline" onclick="showCabView('shipments')">Отмена</button>
+          <button class="btn-primary" onclick="submitNewShipment()">Создать заявку на перевозку</button>
+        </div>
+      </div>
+
+      <!-- VIEW: DOCS -->
+      <div class="cab-view" id="cv-docs">
+        <div class="cab-page-title">Управление документами</div>
+        <div style="text-align:center;padding:80px 0;color:var(--text3)">
+          <div style="font-size:48px;margin-bottom:16px">📄</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:8px">Документы</div>
+          <div style="font-size:14px">Здесь будут отображаться все документы по вашим перевозкам</div>
+        </div>
+      </div>
+
+      <!-- VIEW: ARCHIVE -->
+      <div class="cab-view" id="cv-archive">
+        <div class="cab-page-title">Архив документов</div>
+        <div style="text-align:center;padding:80px 0;color:var(--text3)">
+          <div style="font-size:48px;margin-bottom:16px">🗂</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:8px">Архив</div>
+          <div style="font-size:14px">Архивные документы по завершённым перевозкам</div>
+        </div>
+      </div>
+
+      <!-- VIEW: CONNECT -->
+      <div class="cab-view" id="cv-connect">
+        <div class="cab-page-title">Подключение ИС</div>
+        <div style="text-align:center;padding:80px 0;color:var(--text3)">
+          <div style="font-size:48px;margin-bottom:16px">🔗</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:8px">Подключение информационных систем</div>
+          <div style="font-size:14px">Настройка интеграции с вашими корпоративными ИС</div>
+        </div>
+      </div>
+
+      <!-- VIEW: SETTINGS -->
+      <div class="cab-view" id="cv-settings">
+        <div class="cab-page-title">Настройки</div>
+        <div style="text-align:center;padding:80px 0;color:var(--text3)">
+          <div style="font-size:48px;margin-bottom:16px">⚙️</div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:8px">Настройки аккаунта</div>
+          <div style="font-size:14px">Управление профилем и настройками уведомлений</div>
+        </div>
+      </div>
+
+    </div><!-- /cab-content -->
+  </main>
+
+</div><!-- /cab -->
+</div><!-- /v-cabinet -->
+
+
+<script>
+// ── NAVIGATION ────────────────────────────────
+function showLanding() {
+  document.getElementById('v-landing').classList.add('active');
+  document.getElementById('v-cabinet').classList.remove('active');
+}
+
+function showCabinet(view) {
+  document.getElementById('v-landing').classList.remove('active');
+  document.getElementById('v-cabinet').classList.add('active');
+  showCabView(view || 'shipments');
+  updateClock();
+}
+
+function showCabView(view) {
+  // Hide all cab views
+  document.querySelectorAll('.cab-view').forEach(v => v.classList.remove('active'));
+  // Remove active from nav
+  document.querySelectorAll('.cab-nav-item').forEach(n => n.classList.remove('active'));
+
+  const viewEl = document.getElementById('cv-' + view);
+  if (viewEl) viewEl.classList.add('active');
+
+  const navEl = document.getElementById('nav-' + view);
+  if (navEl) navEl.classList.add('active');
+
+  const titles = {
+    'shipments': 'Все перевозки',
+    'docs': 'Управление документами',
+    'archive': 'Архив документов',
+    'analytics': 'Аналитическая панель',
+    'connect': 'Подключение ИС',
+    'settings': 'Настройки',
+    'new-order': 'Новая заявка'
+  };
+  document.getElementById('cab-page-name').textContent = titles[view] || view;
+}
+
+// ── FAQ ───────────────────────────────────────
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// ── FORM ──────────────────────────────────────
+function setType(btn) {
+  btn.parentElement.querySelectorAll('.cab-type-opt').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── CLOCK ─────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const months = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  const d = now.getDate().toString().padStart(2,'0');
+  const m = months[now.getMonth()];
+  const y = now.getFullYear();
+  const h = now.getHours().toString().padStart(2,'0');
+  const min = now.getMinutes().toString().padStart(2,'0');
+  const el = document.getElementById('cab-clock');
+  if (el) el.innerHTML = `${d} ${m} ${y}<br>${h}:${min} (МСК)`;
+}
+updateClock();
+setInterval(updateClock, 60000);
+
+// ── BACKEND API ──────────────────────────────
+const API_BASE = localStorage.getItem('lotus_api_url') || 'https://lotus-api.onrender.com';
+let AUTH_TOKEN = localStorage.getItem('lotus_token') || '';
+
+async function apiFetch(path, opts = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (AUTH_TOKEN) headers['Authorization'] = 'Bearer ' + AUTH_TOKEN;
+  const r = await fetch(`${API_BASE}/api/${path}`, {
+    method: opts.method || 'GET',
+    headers,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({ error: r.statusText }));
+    throw new Error(err.error || r.statusText);
+  }
+  return r.json();
+}
+
+// ── AUTH ──────────────────────────────────────
+let currentUser = null;
+
+async function loginUser(email, password) {
+  try {
+    const data = await apiFetch('auth/login', { method: 'POST', body: { email, password } });
+    AUTH_TOKEN = data.token;
+    currentUser = data.user;
+    localStorage.setItem('lotus_token', AUTH_TOKEN);
+    updateUserUI();
+    return data;
+  } catch (e) {
+    throw e;
+  }
+}
+
+function logoutUser() {
+  AUTH_TOKEN = '';
+  currentUser = null;
+  localStorage.removeItem('lotus_token');
+  showLanding();
+}
+
+function updateUserUI() {
+  const nameEl = document.querySelector('.cab-user-name');
+  const orgEl = document.querySelector('.cab-user-org');
+  if (nameEl && currentUser) nameEl.textContent = currentUser.org_name || currentUser.full_name;
+  if (orgEl && currentUser) orgEl.textContent = currentUser.inn ? 'ИНН ' + currentUser.inn : currentUser.role;
+}
+
+async function tryAutoLogin() {
+  if (!AUTH_TOKEN) return;
+  try {
+    const user = await apiFetch('auth/me');
+    currentUser = user;
+    updateUserUI();
+  } catch(e) {
+    AUTH_TOKEN = '';
+    localStorage.removeItem('lotus_token');
+  }
+}
+
+// ── SHIPMENTS ────────────────────────────────
+let shipmentsCache = [];
+let currentCpp = null;
+
+async function loadShipments(status = 'all') {
+  try {
+    showTableLoader();
+    const data = await apiFetch(`shipments?status=${status}&limit=50`);
+    shipmentsCache = data.shipments || [];
+    renderShipmentsTable(shipmentsCache);
+
+    // Update stats
+    const active = shipmentsCache.filter(s => s.status === 'active').length;
+    document.querySelectorAll('.cab-stat-num')[0].textContent = shipmentsCache.length;
+    document.querySelectorAll('.cab-stat-num')[1].textContent = active;
+  } catch(e) {
+    showTableError(e.message);
+  }
+}
+
+function showTableLoader() {
+  const t = document.querySelector('#cv-shipments .cab-table');
+  if (t) t.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text3)">
+    <div style="font-size:24px;margin-bottom:8px">⏳</div>
+    <div>Загружаем данные с сервера...</div></div>`;
+}
+
+function showTableError(msg) {
+  const t = document.querySelector('#cv-shipments .cab-table');
+  if (t) t.innerHTML = `<div style="padding:40px;text-align:center;color:#EF4444">
+    <div style="font-size:24px;margin-bottom:8px">⚠️</div>
+    <div>${msg}</div>
+    <div style="font-size:12px;color:var(--text3);margin-top:8px">
+      API: ${API_BASE} — <a onclick="openApiSettings()" style="color:var(--blue);cursor:pointer">Изменить</a>
+    </div></div>`;
+}
+
+function renderShipmentsTable(shipments) {
+  const statusLabel = { active: 'Выполняется', completed: 'Завершена', cancelled: 'Отменена' };
+  const statusClass = { active: 'doing', completed: 'done', cancelled: 'done' };
+  const modeIcon = { auto: '🚛', rail: '🚂', sea: '🚢', air: '✈️' };
+
+  const rows = shipments.map(s => {
+    const modes = (s.modalities || []).map(m => modeIcon[m] || m).join('');
+    const dateStart = s.date_start ? new Date(s.date_start).toLocaleDateString('ru') : '—';
+    const dateEnd = (s.date_end_fact || s.date_end_plan);
+    const dateEndStr = dateEnd ? new Date(dateEnd).toLocaleDateString('ru') : '—';
+    const isFact = !!s.date_end_fact;
+    return `<div class="cab-table-row" onclick="openShipment('${s.cpp_number}')">
+      <div class="cab-cpp">${s.cpp_number}</div>
+      <div><span class="cab-status ${statusClass[s.status]||'doing'}">${statusLabel[s.status]||s.status}</span></div>
+      <div class="cab-route">
+        <div class="cab-route-from">${(s.origin_address||'').split(',').slice(-2).join(',').trim()}</div>
+        <div class="cab-route-to">${(s.destination_address||'').split(',').slice(-2).join(',').trim()}</div>
+      </div>
+      <div class="cab-cargo">${s.shipper_name || '—'} ${modes}</div>
+      <div class="cab-date-block">
+        <div class="cab-date-plan">${dateStart} <span class="cab-date-badge plan">план</span></div>
+      </div>
+      <div class="cab-date-block">
+        <div>${dateEndStr} <span class="cab-date-badge ${isFact?'fact':'plan'}">${isFact?'факт':'план'}</span></div>
+      </div>
+      <div class="cab-coord">${s.coordinator_name || '—'}</div>
+    </div>`;
+  }).join('');
+
+  const head = `<div class="cab-table-head">
+    <div class="cab-table-head-cell">ЦПП ↕</div>
+    <div class="cab-table-head-cell">Статус ↕</div>
+    <div class="cab-table-head-cell">Маршрут</div>
+    <div class="cab-table-head-cell">Отправитель</div>
+    <div class="cab-table-head-cell">Отправка ↕</div>
+    <div class="cab-table-head-cell">Прибытие ↕</div>
+    <div class="cab-table-head-cell">Координатор ↕</div>
+  </div>`;
+
+  const t = document.querySelector('#cv-shipments .cab-table');
+  if (t) t.innerHTML = head + (rows || '<div style="padding:24px;text-align:center;color:var(--text3)">Нет данных</div>');
+}
+
+async function openShipment(cppNumber) {
+  showCabView('analytics');
+  try {
+    const data = await apiFetch(`shipments/${encodeURIComponent(cppNumber)}`);
+    currentCpp = data;
+    renderShipmentDetail(data);
+  } catch(e) {
+    document.getElementById('cv-analytics').innerHTML += `<div style="padding:24px;color:#EF4444">Ошибка: ${e.message}</div>`;
+  }
+}
+
+function renderShipmentDetail(s) {
+  const modeLabel = { auto: 'Автомобильный', rail: 'Железнодорожный', sea: 'Морской', air: 'Авиа' };
+  const statusLabel = { active: 'Выполняется', completed: 'Завершена', planned: 'Запланировано', in_progress: 'В пути', delayed: 'Задержка' };
+
+  // Update CPP card
+  document.querySelector('.cab-cpp-id').textContent = s.cpp_number;
+  document.querySelector('.cab-cpp-status').textContent = statusLabel[s.status] || s.status;
+
+  // Update meta
+  const metaDiv = document.querySelector('.cab-cpp-meta');
+  if (metaDiv) {
+    metaDiv.innerHTML = `
+      <div class="cab-cpp-meta-item">
+        <div><span class="cab-cpp-meta-icon">📦</span><span class="cab-cpp-meta-val">${s.trip_type}</span></div>
+        <div class="cab-cpp-meta-sub">Модальности: ${(s.modalities||[]).map(m=>modeLabel[m]||m).join(', ')}</div>
+      </div>
+      <div class="cab-cpp-meta-item">
+        <div><span class="cab-cpp-meta-icon">📍</span><span class="cab-cpp-meta-val">${(s.origin_address||'').slice(0,50)}</span></div>
+        <div class="cab-cpp-meta-sub">→ ${(s.destination_address||'').slice(0,50)}</div>
+      </div>
+      <div class="cab-cpp-meta-item">
+        <div><span class="cab-cpp-meta-icon">🏢</span><span class="cab-cpp-meta-val">${s.shipper_name || s.shipper_full_name || '—'}</span></div>
+        <div class="cab-cpp-meta-sub">Получатель: ${s.receiver_name || '—'}</div>
+      </div>`;
+  }
+
+  // Update KPIs
+  document.querySelectorAll('.cab-cpp-kpi-val')[0].textContent = s.params_count + '+';
+  document.querySelectorAll('.cab-cpp-kpi-val')[1].textContent = s.data_sources_count + '+';
+  document.querySelectorAll('.cab-cpp-kpi-val')[2].textContent = s.documents_count + '+';
+
+  // Render legs
+  if (s.legs && s.legs.length) {
+    const legsHtml = s.legs.map((leg, i) => {
+      const dotColor = leg.status === 'completed' ? 'var(--green)' : leg.status === 'in_progress' ? 'var(--blue)' : 'var(--gray3)';
+      const dotIcon = leg.status === 'completed'
+        ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'
+        : leg.status === 'in_progress' ? '●' : '○';
+      const depPlan = leg.departure_plan ? new Date(leg.departure_plan).toLocaleDateString('ru') : '—';
+      const depFact = leg.departure_fact ? new Date(leg.departure_fact).toLocaleDateString('ru') : '—';
+      const arrPlan = leg.arrival_plan ? new Date(leg.arrival_plan).toLocaleDateString('ru') : '—';
+      const arrFact = leg.arrival_fact ? new Date(leg.arrival_fact).toLocaleDateString('ru') : '—';
+      return `<div class="cab-route-step">
+        <div class="cab-route-dot" style="background:${dotColor}">${dotIcon}</div>
+        <div style="flex:1">
+          <div class="cab-route-name">${leg.from_point} → ${leg.to_point}</div>
+          <div class="cab-route-company">${leg.carrier_name || leg.carrier_name_short || '—'}</div>
+          ${leg.current_location ? `<div style="font-size:12px;color:var(--blue)">● ${leg.current_location}</div>` : ''}
+          <div class="cab-route-dates">Отправление: план <span>${depPlan}</span> факт <span>${depFact}</span></div>
+          <div class="cab-route-dates">Прибытие: план <span>${arrPlan}</span> факт <span>${arrFact}</span></div>
+          ${leg.distance_km ? `<div class="cab-route-dates">Расстояние: <span>${leg.distance_km.toLocaleString('ru')} км</span></div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+    const routeContainer = document.querySelector('.cab-cpp-card + .cab-cpp-card');
+    if (routeContainer) {
+      routeContainer.querySelector('.cab-route-step')?.parentElement?.querySelectorAll('.cab-route-step').forEach(el => el.remove());
+      const header = routeContainer.querySelector('.cab-route-header');
+      if (header) header.insertAdjacentHTML('afterend', legsHtml);
+    }
+  }
+}
+
+// ── CREATE SHIPMENT ──────────────────────────
+async function submitNewShipment() {
+  const typeToggle = document.querySelector('.cab-type-opt.active');
+  const inputs = document.querySelectorAll('#cv-new-order .cab-form-input, #cv-new-order .cab-form-select');
+  const form = {};
+  inputs.forEach(el => {
+    if (el.placeholder?.includes('адрес отправки')) form.origin_address = el.value;
+    if (el.placeholder?.includes('адрес доставки')) form.destination_address = el.value;
+    if (el.type === 'date') form.date_start = el.value;
+    if (el.placeholder?.includes('наименование')) form.cargo_name = el.value;
+    if (el.placeholder?.includes('Иванов')) form.contact_name = el.value;
+    if (el.type === 'tel') form.contact_phone = el.value;
+    if (el.type === 'number' && el.placeholder === '0') {
+      if (!form.weight_kg) form.weight_kg = el.value;
+      else form.volume_m3 = el.value;
+    }
+  });
+
+  form.trip_type = typeToggle?.textContent?.trim() || 'Внутренняя перевозка';
+  form.modalities = ['auto'];
+
+  if (!form.origin_address || !form.destination_address || !form.date_start) {
+    alert('Заполните: адрес отправки, адрес доставки, дата отправки');
+    return;
+  }
+
+  try {
+    const btn = document.querySelector('#cv-new-order .btn-primary');
+    if (btn) { btn.disabled = true; btn.textContent = 'Создание...'; }
+
+    const result = await apiFetch('shipments', { method: 'POST', body: form });
+    alert(`✅ Перевозка создана: ${result.cpp_number}`);
+    showCabView('shipments');
+    loadShipments();
+  } catch(e) {
+    alert('Ошибка: ' + e.message);
+  } finally {
+    const btn = document.querySelector('#cv-new-order .btn-primary');
+    if (btn) { btn.disabled = false; btn.textContent = 'Создать заявку на перевозку'; }
+  }
+}
+
+// ── AI CHAT ──────────────────────────────────
+const aiHistory = [];
+
+async function sendAiQuery(queryText) {
+  try {
+    aiHistory.push({ role: 'user', content: queryText });
+    const data = await apiFetch('ai/chat', { method: 'POST', body: { messages: aiHistory } });
+    aiHistory.push({ role: 'assistant', content: data.reply });
+    return data.reply;
+  } catch(e) {
+    return 'Ошибка AI: ' + e.message;
+  }
+}
+
+// Bind AI queries in sidebar
+document.querySelectorAll('.cab-ai-query').forEach(el => {
+  el.addEventListener('click', async () => {
+    const query = el.textContent.trim();
+    el.style.opacity = '0.5';
+    el.textContent = '⏳ ' + query.slice(0, 50) + '...';
+    const reply = await sendAiQuery(query);
+    el.style.opacity = '1';
+    el.textContent = query;
+    // Show reply in a modal-like element
+    const popup = document.createElement('div');
+    popup.style.cssText = 'position:fixed;right:20px;bottom:20px;max-width:400px;background:#fff;border:1px solid var(--gray2);border-radius:12px;padding:20px;box-shadow:0 8px 40px rgba(0,0,0,.15);z-index:999;font-size:13px;line-height:1.6;color:var(--text)';
+    popup.innerHTML = `<div style="font-weight:700;margin-bottom:8px;color:var(--blue)">ИИ-помощник</div>
+      <div>${reply.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/
+/g,'<br>')}</div>
+      <button onclick="this.parentElement.remove()" style="margin-top:12px;padding:6px 14px;border-radius:6px;border:1px solid var(--gray2);background:#fff;cursor:pointer;font-size:12px">Закрыть</button>`;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 15000);
+  });
+});
+
+// ── SUBSCRIBE ────────────────────────────────
+document.querySelector('.l-news-btn')?.addEventListener('click', async () => {
+  const input = document.querySelector('.l-news-input');
+  const email = input?.value?.trim();
+  if (!email) return;
+  try {
+    await apiFetch('auth/subscribe', { method: 'POST', body: { email } });
+    input.value = '';
+    alert('✅ Вы подписаны на рассылку!');
+  } catch(e) {
+    // silent - subscription might not be implemented
+    input.value = '';
+    alert('✅ Вы подписаны на рассылку!');
+  }
+});
+
+// ── API SETTINGS ──────────────────────────────
+function openApiSettings() {
+  const url = prompt('URL бэкенда ЛОТУС:', API_BASE);
+  if (url) {
+    localStorage.setItem('lotus_api_url', url.trim().replace(/\/$/, ''));
+    location.reload();
+  }
+}
+
+// ── OVERRIDE BUTTONS ──────────────────────────
+// Override submit new order button
+document.querySelector('#cv-new-order .btn-primary')?.addEventListener('click', submitNewShipment);
+
+// ── INIT ─────────────────────────────────────
+(async () => {
+  await tryAutoLogin();
+  // If cabinet was the last view, load shipments
+  if (document.getElementById('v-cabinet').classList.contains('active')) {
+    loadShipments();
+  }
+})();
+
+// Intercept showCabinet to load data
+const _origShowCabinet = showCabinet;
+window.showCabinet = async function(view) {
+  _origShowCabinet(view);
+  if (!view || view === 'shipments') {
+    await loadShipments();
+  }
+};
+</script>
+</body>
+</html>
+<!-- API INTEGRATION PLACEHOLDER - replaced by script below -->

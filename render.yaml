@@ -18,4 +18,4 @@ services:
       - key: ADMIN_KEY
         generateValue: true
       - key: FRONTEND_URL
-        sync: false
+        value: https://glowing-moxie-030aea.netlify.app
